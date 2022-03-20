@@ -57,16 +57,20 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
                 let embed = await logs.failed(interaction,`The address '${args[0].value}' is not a real ETH Address`)
                 reply(interaction,embed)
             }
-            else if(db.get_users().includes(args[0].value)){
+            else if(db.get_eth().includes(args[0].value)){
                 let embed = await logs.failed(interaction,`This address is already registered`)
+                reply(interaction,embed)
+            }
+            else if(db.get_users().includes(interaction.user.id)){
+                let embed = await logs.failed(interaction,`You have already link an eth address`)
                 reply(interaction,embed)
             }
             else{ //User is unique
                 let invite_code = (await interaction.guild.invites.create(interaction.channelId,{temporary: false, unique: true, reason: `referral program, created by ${interaction.user.username}`,maxAge:0})).code //Create invite link for the channel
-                db.write_user(interaction,args[0].value,invite_code)
-                db.write_invite(args[0].value,invite_code)
+                db.write_user(interaction,args[0].value,invite_code) //Add user to db
+                db.write_invite(args[0].value,invite_code) //Add invite to db
 
-                let embed = commands.join(interaction,invite_code)
+                let embed = commands.join(interaction,invite_code) //Confirm message build
                 reply(interaction,embed)
             }
 
@@ -76,17 +80,17 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
 });
 
 bot.on('guildMemberAdd', async member=>{
-    let invite_cache = member.guild.invites.fetch({"cache":false,"force":true})
-    let invite_saved = db.get_invites()
+    let invite_cache = member.guild.invites.fetch({"cache":false,"force":true}) //Require all invites for guild
+    let invite_saved = db.get_invites() //require invites stored in db
 
-    invite_cache.forEach(invite => {
-        if(Object.keys(invite_saved).includes(invite.code)){
-            if(invite.uses != invite_saved[invite.code].uses){
-                db.add_use(invite.code,1)
-                let invite_owner = db.get_user(invite_saved[invite.code].eth_address)
+    invite_cache.forEach(async invite => { //For each invites in server
+        if(Object.keys(invite_saved).includes(invite.code)){ //If invite in our db
+            if(invite.uses != invite_saved[invite.code].uses){ //If invite uses different than our db
+                db.add_use(invite.code,1,member.id)
+                let invite_owner = await db.get_user(invite_saved[invite.code].eth_address) //Get invite owner
 
-                let dm = await bot.users.createDM(invite_owner.user_id)
-                let embed = await logs.referral_success(member,invite_owner)
+                let dm = await bot.users.createDM(invite_owner.user_id) //Create DM channel with invite owner
+                let embed = await logs.referral_success(member,invite_owner) //Info message build
                 dm.send({embeds: [embed]})
             }
         }
@@ -98,8 +102,8 @@ bot.on('guildMemberAdd', async member=>{
 process.on('unhandledRejection', async (error, promise) => {
     const logs_channel = bot.channels.cache.find(channel => channel.id === logs_channel_id) //Change this channel id to send you errors on bot
     let log = await logs.error("Request failed", error)
-    logs_channel.send({ embeds: [log] })
-    logs_channel.send('<@&847847768365989988>')
+    logs_channel.send({ embeds: [log] }) //Send embed to channel
+    logs_channel.send('<@&847847768365989988>') //Send ping (can be removed)
 });
 
 bot.login(token);

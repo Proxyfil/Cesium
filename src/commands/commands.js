@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 module.exports = {
-    ping: function (interaction) {
+    ping: function (interaction) { //Get latency
         let latency = (Date.now() - interaction.createdTimestamp)
 
         const embed = new MessageEmbed()
@@ -10,7 +10,7 @@ module.exports = {
 
         return embed;
     },
-    info: function () {
+    info: function () { //Get info for the bot
         const embed = new MessageEmbed()
             .setTitle('Referral Programm Info :')
             .setDescription('')
@@ -22,7 +22,7 @@ module.exports = {
 
         return embed;
     },
-    join: function(interaction,code) {
+    join: function(interaction,code) { //Message on joined programm
         const embed = new MessageEmbed()
             .setTitle(':white_check_mark: You\'ve successfully joined the referral programm :white_check_mark:')
             .setDescription('')
