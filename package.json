@@ -1,0 +1,23 @@
+{
+  "name": "cesium",
+  "version": "1.0.0",
+  "description": "Discord bot with referral system",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Proxyfil/Cesium.git"
+  },
+  "author": "proxyfil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Proxyfil/Cesium/issues"
+  },
+  "homepage": "https://github.com/Proxyfil/Cesium#readme",
+  "dependencies": {
+    "discord.js": "^13.6.0",
+    "ethereumjs-util": "^7.1.4"
+  }
+}
