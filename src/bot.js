@@ -23,7 +23,7 @@ cmdinit(bot); //Rewrite every commands
 
 bot.on('ready', () => { //Bot init
     console.log("[" + new Date().toLocaleString() + "] [BOOT] Is this... life ?");
-    bot.user.setActivity("/info")
+    bot.user.setActivity("/r_info")
 })
 
 bot.on('interactionCreate', async interaction =>{ //On interaction
@@ -37,16 +37,35 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
             reply(interaction,embed) //Send Ping
         }
 
-        else if(interaction.commandName == "info"){
+        else if(interaction.commandName == "r_info"){
             let embed = commands.info()
             reply(interaction,embed)
         }
 
-        else if(interaction.commandName == "leaderboard"){
+        else if(interaction.commandName == "update_leaderboard"){
+            let users = db.get_users_db()
+            db.update_leaderboard(users)
 
+            let embed = await logs.leaderboard_updated()
+            reply(interaction,embed)
         }
 
-        else if(interaction.commandName == "join"){
+        else if(interaction.commandName == "r_leaderboard"){
+            let top = db.get_leaderboard(20)
+
+            let embed = commands.leaderboard(interaction)
+
+            await top.forEach(async element => {
+                let username = await (await bot.users.fetch(element[0])).username
+                embed.addFields({"name": `${username.toString() } :arrow_right: **Tier 0** : ${element[1]["tier0"].toString()} | **Tier 1** : ${element[1]["tier1"].toString()} | **Tier 2** : ${element[1]["tier2"].toString()} | **Overall** : ${element[1]["overall"].toString()}`,"value": `-------`})
+                
+                if(element[0] == top[top.length-1][0]){
+                    reply(interaction,embed)
+                }
+            });
+        }
+
+        else if(interaction.commandName == "r_join"){
             args = interaction.options.data; //Get options as {args}
 
             if(args[0].value.length != 42 || !args[0].value.startsWith('0x')){ //Verify ETH Address style
@@ -74,6 +93,15 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
                 reply(interaction,embed)
             }
 
+        }
+
+        else if(interaction.commandName == "r_status"){
+            args = interaction.options.data; //Get options as {args}
+            let user = db.get_rank(args[0].value)
+            let username = await (await bot.users.fetch(args[0].value)).username
+
+            let embed = commands.status(interaction,user,username)
+            reply(interaction,embed)
         }
     }
 

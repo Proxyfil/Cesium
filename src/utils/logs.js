@@ -29,5 +29,14 @@ module.exports = {
                 .setTimestamp()
 
         return embed
+    },
+    leaderboard_updated: async function () {
+            const embed = new MessageEmbed()
+                .setTitle(`Leaderboard has been successfully updated ! :thumbsup:`)
+                .setDescription(`You can now see the new leaderboard with /r_leaderboard`)
+                .setColor("1cbe7d")
+                .setTimestamp()
+
+        return embed
     }
 }

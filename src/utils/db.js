@@ -25,6 +25,12 @@ module.exports = {
 
         return invites
     },
+    get_users_db: function(){ //Get every invites
+        let rawdata = fs.readFileSync('./src/ressources/db/users.json');
+        let users = JSON.parse(rawdata);
+
+        return users
+    },
     write_user: function(interaction,eth_address,code){ //Add user to db
         let rawdata = fs.readFileSync('./src/ressources/db/users.json');
         let new_user = JSON.parse(rawdata);
@@ -62,5 +68,59 @@ module.exports = {
 
         data = JSON.stringify(new_user, null, 4);
         fs.writeFileSync('./src/ressources/db/users.json', data);
+    },
+    update_leaderboard: function(users){
+        let leaderboard = {}
+        let users_key = Object.keys(users)
+        users_key.forEach(user => { //Build tier0
+            leaderboard[users[user]["user_id"]] = {"tier0":users[user]["referrals"].length}
+        });
+
+        users_key.forEach(user => { //Build tier2
+            leaderboard[users[user]["user_id"]]["tier1"] = 0
+            users[user]["referrals"].forEach(referral => {
+                if(leaderboard[referral]){
+                    leaderboard[users[user]["user_id"]]["tier1"] += leaderboard[referral]["tier0"]
+                }
+            });
+        });
+
+        users_key.forEach(user => { //Build tier3
+            leaderboard[users[user]["user_id"]]["tier2"] = 0
+            users[user]["referrals"].forEach(referral => {
+                if(leaderboard[referral]){
+                    leaderboard[users[user]["user_id"]]["tier2"] += leaderboard[referral]["tier1"]
+                }
+            });
+        });
+
+        users_key.forEach(user => { //Build tier3
+            leaderboard[users[user]["user_id"]]["overall"] = leaderboard[users[user]["user_id"]]["tier0"] + leaderboard[users[user]["user_id"]]["tier1"] +leaderboard[users[user]["user_id"]]["tier2"]
+        });
+
+        let data = JSON.stringify(leaderboard, null, 4);
+        fs.writeFileSync('./src/ressources/db/leaderboard.json', data);
+    },
+    get_leaderboard: function(amount){
+        let rawdata = fs.readFileSync('./src/ressources/db/leaderboard.json');
+        let leaderboard = JSON.parse(rawdata);
+
+        var items = Object.keys(leaderboard).map(
+            (key) => { return [key, leaderboard[key]] });
+        
+        items.sort(
+            (first, second) => { return second[1]["overall"] - first[1]["overall"] }
+        );
+
+        var leaderboard_sorted = items.map(
+            (e) => { return e });
+
+        return leaderboard_sorted.slice(0, amount)
+    },
+    get_rank: function(user_id){
+        let rawdata = fs.readFileSync('./src/ressources/db/leaderboard.json');
+        let leaderboard = JSON.parse(rawdata);
+
+        return leaderboard[user_id]
     }
 }

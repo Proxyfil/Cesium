@@ -6,17 +6,32 @@ module.exports = function (bot) {
         "options": ""
     },
     {
-        "name": "info",
+        "name": "r_info",
         "description": "Give you info about referral programm",
         "options": ""
     },
     {
-        "name": "leaderboard",
+        "name": "r_leaderboard",
         "description": "Give you top users in the referral programm",
         "options": ""
     },
     {
-        "name": "join",
+        "name": "r_status",
+        "description": "Give you top users in the referral programm",
+        "options": [{
+            "name": "user",
+            "description" : "Tag of an user",
+            "type": 6,
+            "required": true
+        }]
+    },
+    {
+        "name": "update_leaderboard",
+        "description": "Force leaderboard update [MODS ONLY]",
+        "options": ""
+    },
+    {
+        "name": "r_join",
         "description": "Allow you to join the referral programm",
         "options": [{
             "name": "eth_address",
