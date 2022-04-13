@@ -47,8 +47,8 @@
 
 ### 🎟️ Event System 🎟️
 
-- **🆕 Command new_event [title] [description] [nbr_winners] [points] [duration] [submission]**
-    - status : Not started 🟧
+- **🆕 Command new_event [title] [description] [nbr_winners] [points] [timestamp] [submission]**
+    - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : mods
     - observations :
@@ -58,12 +58,12 @@
     - Access : mods
     - observations : I will think about the best way to display it
 - **📰 Command e_info**
-    - status : Not started 🟧
+    - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
     - observations :
 - **➡️ Command e_join [event_id]**
-    - status : Not started 🟧
+    - status : Working on it 🟨
     - Authorisations needed : slash command creation
     - Access : Everyone
     - observations :

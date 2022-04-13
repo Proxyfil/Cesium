@@ -10,7 +10,7 @@ module.exports = {
 
         return embed;
     },
-    info: function () { //Get info for the bot
+    r_info: function () { //Get info for the bot
         const embed = new MessageEmbed()
             .setTitle('Referral Programm Info :')
             .setDescription('The referral program keeps track of primary referrals, secondary referrals, as well as tertiary referrals to gauge your network\'s reach. The number of referrals is a factor that the PYX_LABS team will use when considering potential Whitelist users')
@@ -22,7 +22,7 @@ module.exports = {
 
         return embed;
     },
-    join: function(interaction,code) { //Message on joined programm
+    r_join: function(interaction,code) { //Message on joined programm
         const embed = new MessageEmbed()
             .setTitle(':white_check_mark: You\'ve successfully joined the referral programm :white_check_mark:')
             .setDescription('')
@@ -33,7 +33,7 @@ module.exports = {
 
         return embed;
     },
-    leaderboard: function(interaction) { //Message on joined programm
+    r_leaderboard: function(interaction) { //Message on joined programm
         const embed = new MessageEmbed()
             .setTitle(`Leaderboard of ${interaction.guild.name}`)
             .setDescription('')
@@ -41,11 +41,35 @@ module.exports = {
 
         return embed;
     },
-    status: function(interaction,leaderboard,username) {
+    r_status: function(interaction,leaderboard,username) {
         const embed = new MessageEmbed()
             .setTitle(`Here is the profile of ${username}`)
             .setDescription('')
             .addFields({"name": `**Tier 0** : ${leaderboard["tier0"].toString()} | **Tier 1** : ${leaderboard["tier1"].toString()} | **Tier 2** : ${leaderboard["tier2"].toString()} | **Overall** : ${leaderboard["overall"].toString()}`,"value": `-------`})
+            .setColor('1cbe7d')
+
+        return embed;
+    },
+    e_info: function() {
+        const embed = new MessageEmbed()
+            .setTitle(`Events Programm Info :`)
+            .setDescription('Throughout our marketing campaign, PYX_LABS will host a variety of events and competitions to allow for a select number of members to win a Whitelist spot. Even if you do not win however, participating in an event will allow users to gain event points, a factor that the PYX_LABS team will use when considering potential Whitelist candidates')
+            .setColor('1cbe7d')
+
+        return embed;
+    },
+    new_event: function(event) {
+        const embed = new MessageEmbed()
+            .setTitle(`New event created :`)
+            .setDescription(`Created at ${Date()}`)
+            .addFields(
+                {"name":"🏷️ Title :","value":event["title"].toString()},
+                {"name":"📝 Description :","value":event["description"].toString()},
+                {"name":"👑 Number of Winners :","value":event["nbr_winners"].toString()},
+                {"name":"🪙 Points to winners :","value":event["points"].toString()},
+                {"name":"📅 End Date :","value":new Date(event["timestamp"]).toString()},
+                {"name":"📮 Allow submissions :","value":event["submission"].toString()}
+                )
             .setColor('1cbe7d')
 
         return embed;

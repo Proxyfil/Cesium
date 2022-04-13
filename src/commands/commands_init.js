@@ -39,6 +39,51 @@ module.exports = function (bot) {
             "type": 3,
             "required": true
         }]
+    },
+    {
+        "name": "e_info",
+        "description": "Give you info about referral programm",
+        "options": ""
+    },
+    {
+        "name": "new_event",
+        "description": "Create an event [MODS ONLY]",
+        "options": [{
+            "name": "name",
+            "description": "Name of the event",
+            "type": 3,
+            "required": true
+        },
+        {
+            "name": "description",
+            "description": "Description of the event",
+            "type": 3,
+            "required": true
+        },
+        {
+            "name": "number",
+            "description": "Number of winners",
+            "type": 10,
+            "required": true
+        },
+        {
+            "name": "points",
+            "description": "Points to winners",
+            "type": 10,
+            "required": true
+        },
+        {
+            "name": "timestamp",
+            "description": "Date and time of the end as {mm/dd/yyyy hh:mm:ss}",
+            "type": 3,
+            "required": true
+        },
+        {
+            "name": "submission",
+            "description": "Do you allow submissions ?",
+            "type": 5,
+            "required": true
+        }]
     }]
 
     command_list.forEach(command => {

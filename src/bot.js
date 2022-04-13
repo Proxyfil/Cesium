@@ -38,7 +38,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
         }
 
         else if(interaction.commandName == "r_info"){
-            let embed = commands.info()
+            let embed = commands.r_info()
             reply(interaction,embed)
         }
 
@@ -53,7 +53,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
         else if(interaction.commandName == "r_leaderboard"){
             let top = db.get_leaderboard(20)
 
-            let embed = commands.leaderboard(interaction)
+            let embed = commands.r_leaderboard(interaction)
 
             await top.forEach(async element => {
                 let username = await (await bot.users.fetch(element[0])).username
@@ -89,7 +89,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
                 db.write_user(interaction,args[0].value,invite_code) //Add user to db
                 db.write_invite(args[0].value,invite_code) //Add invite to db
 
-                let embed = commands.join(interaction,invite_code) //Confirm message build
+                let embed = commands.r_join(interaction,invite_code) //Confirm message build
                 reply(interaction,embed)
             }
 
@@ -100,8 +100,27 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
             let user = db.get_rank(args[0].value)
             let username = await (await bot.users.fetch(args[0].value)).username
 
-            let embed = commands.status(interaction,user,username)
+            let embed = commands.r_status(interaction,user,username)
             reply(interaction,embed)
+        }
+
+        else if(interaction.commandName == "e_info"){
+            let embed = commands.e_info()
+            reply(interaction,embed)
+        }
+
+        else if(interaction.commandName == "new_event"){
+            args = interaction.options.data; //Get options as {args}  
+
+            let output = db.create_event(args)
+            if(output["error"] == 0){
+                let embed = commands.new_event(output["data"])
+                reply(interaction,embed)
+            }
+            else{
+                let embed = await logs.failed(interaction,"Date couldn't be resolve")
+                reply(interaction,embed)
+            }
         }
     }
 
