@@ -53,22 +53,22 @@
     - Access : mods
     - observations :
 - **📋 Command e_submission [event_id]**
-    - status : Not started 🟧
+    - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : mods
     - observations : I will think about the best way to display it
 - **📰 Command e_info**
-    - status : Done 🟩
-    - Authorisations needed : slash command creation
-    - Access : Everyone
-    - observations :
-- **➡️ Command e_join [event_id]**
     - status : Working on it 🟨
     - Authorisations needed : slash command creation
     - Access : Everyone
     - observations :
+- **➡️ Command e_join [event_id]**
+    - status : Done 🟩
+    - Authorisations needed : slash command creation
+    - Access : Everyone
+    - observations :
 - **📮 Command e_submit [event_id] [link]**
-    - status : Not started 🟧
+    - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
     - observations : I will see for link/file integration
@@ -78,7 +78,22 @@
     - Access : Everyone
     - observations : I will see for link/file integration
 - **📃 Command e_status [user]**
-    - status : Not started 🟧
+    - status : Working on it 🟨
     - Authorisations needed : slash command creation
     - Access : Everyone
     - observations : I will see for link/file integration
+- **📃 Command e_end [event_id]**
+    - status : Working on it 🟨
+    - Authorisations needed : slash command creation
+    - Access : Mods
+    - observations : /
+- **📃 Command e_give [user] [amount]**
+    - status : Working on it 🟨
+    - Authorisations needed : slash command creation
+    - Access : Mods
+    - observations :
+- **📃 Command e_remove [user] [amount]**
+    - status : Working on it 🟨
+    - Authorisations needed : slash command creation
+    - Access : Mods
+    - observations : /

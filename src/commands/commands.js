@@ -68,8 +68,60 @@ module.exports = {
                 {"name":"👑 Number of Winners :","value":event["nbr_winners"].toString()},
                 {"name":"🪙 Points to winners :","value":event["points"].toString()},
                 {"name":"📅 End Date :","value":new Date(event["timestamp"]).toString()},
-                {"name":"📮 Allow submissions :","value":event["submission"].toString()}
+                {"name":"📮 Allow submissions :","value":event["submission"].toString()},
+                {"name":"🆔 ID :","value":event["id"].toString()}
                 )
+            .setColor('1cbe7d')
+
+        return embed;
+    },
+    e_join: function(event) {
+        const embed = new MessageEmbed()
+            .setTitle(`You have joined the event "*${event["title"]}*"`)
+            .setDescription(`End date of this event : ${new Date(event["timestamp"]).toString()}`)
+            .setColor('1cbe7d')
+
+        return embed;
+    },
+    e_submit: function(event) {
+        const embed = new MessageEmbed()
+            .setTitle(`You have submitted a file for the event "*${event["title"]}*"`)
+            .setDescription(`End date of this event : ${new Date(event["timestamp"]).toString()}`)
+            .setColor('1cbe7d')
+
+        return embed;
+    },
+    e_submissions: function(event) {
+        let embeds = []
+        const embed_guild = new MessageEmbed()
+            .setTitle(`The submissions will be send in your DMs to avoid some spamming here`)
+            .setDescription(`This operation could take a bit of time`)
+            .setColor('1cbe7d')
+
+        embeds.push(embed_guild)
+
+        return embeds;
+    },
+    e_give: function(amount,username) {
+        const embed = new MessageEmbed()
+            .setTitle(`${username} has receive points !`)
+            .setDescription(`New amount : ${amount}`)
+            .setColor('1cbe7d')
+
+        return embed;
+    },
+    e_remove: function(amount,username) {
+        const embed = new MessageEmbed()
+            .setTitle(`${username} has lose points !`)
+            .setDescription(`New amount : ${amount}`)
+            .setColor('1cbe7d')
+
+        return embed;
+    },
+    e_remove: function(event) {
+        const embed = new MessageEmbed()
+            .setTitle(`${event["title"]} has been ended`)
+            .setDescription(`Participants : ${event["joined"].length}`)
             .setColor('1cbe7d')
 
         return embed;

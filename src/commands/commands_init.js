@@ -68,7 +68,7 @@ module.exports = function (bot) {
         },
         {
             "name": "points",
-            "description": "Points to winners",
+            "description": "Points to participants",
             "type": 10,
             "required": true
         },
@@ -82,6 +82,83 @@ module.exports = function (bot) {
             "name": "submission",
             "description": "Do you allow submissions ?",
             "type": 5,
+            "required": true
+        }]
+    },
+    {
+        "name": "e_join",
+        "description": "Allow you to join an event",
+        "options": [{
+            "name": "event_id",
+            "description": "Give a valid event id",
+            "type": 10,
+            "required": true
+        }]
+    },
+    {
+        "name": "e_submit",
+        "description": "Allow you to submit a link",
+        "options": [{
+            "name": "event_id",
+            "description": "Give a valid event id",
+            "type": 10,
+            "required": true
+        },{
+            "name": "link",
+            "description": "Link of your submit",
+            "type": 3,
+            "required": true
+        }]
+    },
+    {
+        "name": "e_submissions",
+        "description": "Allow you to see submissions for an event [MODS ONLY]",
+        "options": [{
+            "name": "event_id",
+            "description": "Give a valid event id",
+            "type": 10,
+            "required": true
+        }]
+    },
+    {
+        "name": "e_end",
+        "description": "Allow you to end an event [MODS ONLY]",
+        "options": [{
+            "name": "event_id",
+            "description": "Give a valid event id",
+            "type": 10,
+            "required": true
+        }]
+    },
+    {
+        "name": "e_give",
+        "description": "Allow you to give points to someone [MODS ONLY]",
+        "options": [{
+            "name": "user",
+            "description": "User to target",
+            "type": 6,
+            "required": true
+        },
+        {
+            "name": "amount",
+            "description": "Amount to give",
+            "type": 10,
+            "required": true
+        }]
+    },
+    {
+        "name": "e_remove",
+        "description": "Allow you to remove points to someone [MODS ONLY]",
+        "options": [{
+            "name": "user",
+            "description": "User to target",
+            "type": 6,
+            "required": true
+        },
+        {
+            "name": "amount",
+            "description": "Amount to remove",
+            "type": 10,
             "required": true
         }]
     }]

@@ -1,5 +1,5 @@
 //Var Declaration
-const { Client, RichEmbed, Message, MessageEmbed, APIMessage, Intents } = require('discord.js');
+const { Client, RichEmbed, Message, MessageEmbed, APIMessage, Intents, MessageAttachment } = require('discord.js');
 const { isValidChecksumAddress } = require('ethereumjs-util');
 const intents = new Intents([Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]);
 const bot = new Client({ disableEveryone: "False", intents: intents });
@@ -121,6 +121,111 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
                 let embed = await logs.failed(interaction,"Date couldn't be resolve")
                 reply(interaction,embed)
             }
+        }
+
+        else if(interaction.commandName == "e_join"){
+            args = interaction.options.data; //Get options as {args}  
+
+            let output = db.join_event(interaction.user.id,args[0].value.toString())
+            if(output["error"] == 0){
+                let embed = commands.e_join(output["data"])
+                reply(interaction,embed)
+            }
+            else if(output["error"] == 1){
+                let embed = await logs.failed(interaction,"Event ID couldn't be resolve")
+                reply(interaction,embed)
+            }
+            else if(output["error"] == 2){
+                let embed = await logs.failed(interaction,"You have already join this event")
+                reply(interaction,embed)
+            }
+        }
+
+        else if(interaction.commandName == "e_submit"){
+            args = interaction.options.data; //Get options as {args}
+
+            let output = db.submit(interaction.user.id,args)
+            if(output["error"] == 0){
+                let embed = commands.e_submit(output["data"])
+                reply(interaction,embed)
+            }
+            else if(output["error"] == 1){
+                let embed = await logs.failed(interaction,"Event ID couldn't be resolve")
+                reply(interaction,embed)
+            }
+            else if(output["error"] == 2){
+                let embed = await logs.failed(interaction,"You have already submitted a link")
+                reply(interaction,embed)
+            }
+            else if(output["error"] == 3){
+                let embed = await logs.failed(interaction,"You need to join this event before submitting")
+                reply(interaction,embed)
+            }
+            else if(output["error"] == 4){
+                let embed = await logs.failed(interaction,"It's too late to submit a file")
+                reply(interaction,embed)
+            }
+            else if(output["error"] == 5){
+                let embed = await logs.failed(interaction,"This event doesn't allow submissions")
+                reply(interaction,embed)
+            }
+        }
+
+        else if(interaction.commandName == "e_submissions"){
+            let args = interaction.options.data; //Get options as {args}
+            let output = db.get_event(args[0].value.toString())
+            let event = output["data"]
+
+            if(output["error"] == 0){
+                let embeds = commands.e_submissions(event)
+                reply(interaction,embeds[0])
+
+                for (let e = 0; e < Math.floor(Object.keys(event["submissions"]).length/20)+1; e++) {
+                    let embed = new MessageEmbed()
+                        .setTitle(`Submission list for "*${event["title"]}*"`)
+                        .setDescription(`Page ${e+1}/${Math.floor(Object.keys(event["submissions"]).length/20)+1}`)
+                        .setColor('1cbe7d')
+        
+                    Object.keys(event["submissions"]).splice(e*20,(e+1)*20).forEach(async sub_key => {
+                        let user = await (await bot.users.fetch(sub_key)).username
+                        embed.addFields({"name":`${user} | ${event["submissions"][sub_key][0]}`,"value":`-------`})
+
+                        if(sub_key == Object.keys(event["submissions"])[Object.keys(event["submissions"]).length-1] || sub_key == Object.keys(event["submissions"])[(e+1)*20-1]){
+                            bot.users.send(interaction.user.id,{"embeds":[embed]})
+                        }
+                    });
+                }
+            }
+            else if(output["error"] == 1){
+                let embed = await logs.failed(interaction,"Event ID couldn't be resolve")
+                reply(interaction,embed)
+            }
+        }
+
+        else if(interaction.commandName == "e_give"){
+            args = interaction.options.data; //Get options as {args}
+            let amount = db.give(args)
+            let username = await (await bot.users.fetch(args[0].value)).username
+
+            let embed = commands.e_give(amount,username)
+            reply(interaction,embed)
+        }
+
+        else if(interaction.commandName == "e_remove"){
+            args = interaction.options.data; //Get options as {args}
+            let amount = db.remove(args)
+            let username = await (await bot.users.fetch(args[0].value)).username
+
+            let embed = commands.e_remove(amount,username)
+            reply(interaction,embed)
+        }
+
+        else if(interaction.commandName == "e_end"){
+            args = interaction.options.data; //Get options as {args}
+            let event = db.end(args)
+
+            let embed = commands.e_end(event)
+            reply(interaction,embed)
         }
     }
 
