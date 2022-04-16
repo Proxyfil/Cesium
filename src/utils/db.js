@@ -55,19 +55,25 @@ module.exports = {
         fs.writeFileSync('./src/ressources/db/referrals/invites.json', data);
     },
     add_use: function(code,amount,member){ //Add one use to invite link
-        let rawdata = fs.readFileSync('./src/ressources/db/referrals/invites.json');
-        let new_invite = JSON.parse(rawdata);
-        new_invite[code]["uses"] += amount
-
-        let data = JSON.stringify(new_invite, null, 4);
-        fs.writeFileSync('./src/ressources/db/referrals/invites.json', data);
-
-        rawdata = fs.readFileSync('./src/ressources/db/referrals/users.json');
+        let rawdata = fs.readFileSync('./src/ressources/db/referrals/users.json');
         let new_user = JSON.parse(rawdata);
-        new_user[new_invite[code]["eth_address"]]["referrals"].push(member)
+        rawdata = fs.readFileSync('./src/ressources/db/referrals/invites.json');
+        let new_invite = JSON.parse(rawdata);
+        if(!new_user[new_invite[code]["eth_address"]]["referrals"].includes(member)){
+            new_user[new_invite[code]["eth_address"]]["referrals"].push(member)
 
-        data = JSON.stringify(new_user, null, 4);
-        fs.writeFileSync('./src/ressources/db/referrals/users.json', data);
+            let data = JSON.stringify(new_user, null, 4);
+            fs.writeFileSync('./src/ressources/db/referrals/users.json', data);
+
+            new_invite[code]["uses"] += amount
+
+            data = JSON.stringify(new_invite, null, 4);
+            fs.writeFileSync('./src/ressources/db/referrals/invites.json', data);
+            return {"error":0}
+        }
+        else{
+            return {"error":1}
+        }
     },
     update_leaderboard: function(users){
         let leaderboard = {}

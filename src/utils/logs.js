@@ -24,7 +24,16 @@ module.exports = {
     referral_success: async function (member,invite_owner) {
             const embed = new MessageEmbed()
                 .setTitle(`Hello ${invite_owner.username} :wave:`)
-                .setDescription(`I've detected that ${member.username} has joined the server with your invite link ! You\'re count has grown up :thumbsup:`)
+                .setDescription(`I've detected that ${member.user.username} has joined the server with your invite link ! You\'re count has grown up :thumbsup:`)
+                .setColor("1cbe7d")
+                .setTimestamp()
+
+        return embed
+    },
+    referral_fail: async function (member,invite_owner) {
+            const embed = new MessageEmbed()
+                .setTitle(`Hello ${invite_owner.username} :wave:`)
+                .setDescription(`I've detected that ${member.user.username} has already joined the server with your invite link ! You\'re count has not changed :thumbsdown:`)
                 .setColor("1cbe7d")
                 .setTimestamp()
 
