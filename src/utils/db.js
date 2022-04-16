@@ -121,6 +121,10 @@ module.exports = {
         let rawdata = fs.readFileSync('./src/ressources/db/referrals/leaderboard.json');
         let leaderboard = JSON.parse(rawdata);
 
+        if(!Object.keys(leaderboard).includes(user_id)){
+            return {"tier0": 0,"tier1": 0,"tier2": 0,"overall": 0}
+        }
+
         return leaderboard[user_id] // Return leaderboard of user
     },
     create_event: function(args){
@@ -133,7 +137,7 @@ module.exports = {
         if(!Date.parse(args[4].value)){
             return {"error":1}
         }
-        events[id] = {"title":args[0].value,"description":args[1].value,"nbr_winners":args[2].value,"points":args[3].value,"timestamp":Date.parse(args[4].value),"submission":args[5].value,"joined":[],"winners":[],"submissions":{},"id":id}
+        events[id] = {"title":args[0].value,"description":args[1].value,"nbr_winners":args[2].value,"points":args[3].value,"timestamp":Date.parse(args[4].value),"submission":args[5].value,"joined":[],"submissions":{},"id":id}
 
         data = JSON.stringify(events, null, 4);
         fs.writeFileSync('./src/ressources/db/events/events.json', data);
@@ -200,6 +204,12 @@ module.exports = {
 
         return {"error":0,"data":events[event_id]}
     },
+    get_events: function(amount){
+        let rawdata = fs.readFileSync('./src/ressources/db/events/events.json'); // Open events file
+        let events = JSON.parse(rawdata);
+
+        return {"error":0,"data":Object.values(events).splice(0,amount)}
+    },
     give: function(args){
         let rawdata = fs.readFileSync('./src/ressources/db/events/users.json'); // Open events file
         let users = JSON.parse(rawdata);
@@ -236,17 +246,53 @@ module.exports = {
         let rawdata2 = fs.readFileSync('./src/ressources/db/events/users.json'); // Open events file
         let users = JSON.parse(rawdata2);
 
+        if(!Object.keys(events).includes(args[0].value.toString())){
+            return {"error":1} // No event with this id
+        }
+
         events[args[0].value]["joined"].forEach(user_id => {
             if(Object.keys(users).includes(user_id)){
-                users[user_id] += events[args[0].value]["points"]
+                users[user_id] += events[args[0].value.toString()]["points"]
             }
             else{
-                users[user_id] = events[args[0].value]["points"]
+                users[user_id] = events[args[0].value.toString()]["points"]
             }
         });
 
-        data = JSON.stringify(events, null, 4); // Rewrite file
+        deleted_event = events[args[0].value.toString()]
+        delete events[args[0].value.toString()]
+
+        data = JSON.stringify(users, null, 4); // Rewrite file
         fs.writeFileSync('./src/ressources/db/events/users.json', data);
-        return {"error":0,"data":events[args[0].value]}
+        data = JSON.stringify(events, null, 4); // Rewrite file
+        fs.writeFileSync('./src/ressources/db/events/events.json', data);
+        return {"error":0,"data":deleted_event}
+    },
+    e_status: function(user_id){
+        let rawdata = fs.readFileSync('./src/ressources/db/events/users.json'); // Open events file
+        let users = JSON.parse(rawdata);
+
+        if(!Object.keys(users).includes(user_id)){
+            return {"error":0,"data":0}
+        }
+        else{
+            return {"error":0,"data":users[user_id]}
+        }
+    },
+    get_leaderboard_e: function(amount){
+        let rawdata = fs.readFileSync('./src/ressources/db/events/users.json');
+        let leaderboard = JSON.parse(rawdata);
+
+        var items = Object.keys(leaderboard).map( // Build list to sort users
+            (key) => { return [key, leaderboard[key]] });
+        
+        items.sort( // Sort list
+            (first, second) => { return second[1] - first[1] }
+        );
+
+        var leaderboard_sorted = items.map( // Build dictionnary sorted
+            (e) => { return e });
+
+        return leaderboard_sorted.slice(0, amount) // Send top {amount} users
     }
 }

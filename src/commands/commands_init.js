@@ -17,7 +17,7 @@ module.exports = function (bot) {
     },
     {
         "name": "r_status",
-        "description": "Give you top users in the referral programm",
+        "description": "Give you someone's referrals",
         "options": [{
             "name": "user",
             "description" : "Tag of an user",
@@ -128,6 +128,12 @@ module.exports = function (bot) {
             "description": "Give a valid event id",
             "type": 10,
             "required": true
+        },
+        {
+            "name": "alert",
+            "description": "Do you want to alert users of the event's end ?",
+            "type": 5,
+            "required": true
         }]
     },
     {
@@ -161,6 +167,21 @@ module.exports = function (bot) {
             "type": 10,
             "required": true
         }]
+    },
+    {
+        "name": "e_status",
+        "description": "Give you someone's event points",
+        "options": [{
+            "name": "user",
+            "description" : "Tag of an user",
+            "type": 6,
+            "required": true
+        }]
+    },
+    {
+        "name": "e_leaderboard",
+        "description": "Give you top users in the event programm",
+        "options": ""
     }]
 
     command_list.forEach(command => {

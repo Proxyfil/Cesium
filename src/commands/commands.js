@@ -50,11 +50,15 @@ module.exports = {
 
         return embed;
     },
-    e_info: function() {
+    e_info: function(events) {
         const embed = new MessageEmbed()
             .setTitle(`Events Programm Info :`)
             .setDescription('Throughout our marketing campaign, PYX_LABS will host a variety of events and competitions to allow for a select number of members to win a Whitelist spot. Even if you do not win however, participating in an event will allow users to gain event points, a factor that the PYX_LABS team will use when considering potential Whitelist candidates')
             .setColor('1cbe7d')
+
+        events.forEach(event => {
+            embed.addFields({"name":`**🏷️ ${event["title"]}** | 📝 *${event["description"]}*`,"value":`👑 Winners : ${event["nbr_winners"]} - 🪙 Points to earn : ${event["points"]}\n😀 Players : ${event["joined"].length} - 📮 Submissions : ${event["submission"]}\n📅 End date : ${new Date(event["timestamp"]).toString()}\n 🆔 ID : ${event["id"].toString()}\n-------`})
+        });
 
         return embed;
     },
@@ -118,10 +122,27 @@ module.exports = {
 
         return embed;
     },
-    e_remove: function(event) {
+    e_end: function(event) {
         const embed = new MessageEmbed()
             .setTitle(`${event["title"]} has been ended`)
             .setDescription(`Participants : ${event["joined"].length}`)
+            .setColor('1cbe7d')
+
+        return embed;
+    },
+    e_status: function(amount,username) {
+        const embed = new MessageEmbed()
+            .setTitle(`Here is the profile of ${username}`)
+            .setDescription('')
+            .addFields({"name": `Event points : ${amount}`,"value": `-------`})
+            .setColor('1cbe7d')
+
+        return embed;
+    },
+    e_leaderboard: function(interaction) { //Message on joined programm
+        const embed = new MessageEmbed()
+            .setTitle(`Leaderboard of ${interaction.guild.name}`)
+            .setDescription('')
             .setColor('1cbe7d')
 
         return embed;

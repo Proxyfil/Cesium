@@ -26,22 +26,22 @@
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
-    - observations : /
+    - observations : Give informations about referrals programm
 - **🥇 Command /r_leaderboard**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
-    - observations : I've done it to make a top 20 then we will see for more pages
+    - observations : Give top 20 of users in the referrals programm
 - **➡️ Command r_join [eth_address]**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
-    - observations : return invite code that need to be kept for users
+    - observations : Allow users to join the referral programm
 - **📃 Command r_status [user]**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
-    - observations : /
+    - observations : Give the amount of referrals for one user
 
 ----
 
@@ -51,49 +51,60 @@
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : mods
-    - observations :
+    - observations : Create a new event
 - **📋 Command e_submission [event_id]**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : mods
-    - observations : I will think about the best way to display it
+    - observations : Send submissions for an event
 - **📰 Command e_info**
-    - status : Working on it 🟨
+    - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
-    - observations :
+    - observations : Give you informations about events and give you the 20 newest events
 - **➡️ Command e_join [event_id]**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
-    - observations :
+    - observations : Allow users to join an event
 - **📮 Command e_submit [event_id] [link]**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
-    - observations : I will see for link/file integration
+    - observations : Allow users to send link for events
 - **🥇 Command e_leaderboard**
-    - status : Not started 🟧
+    - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
-    - observations : I will see for link/file integration
+    - observations : Give you the top 20 of users with points for events
 - **📃 Command e_status [user]**
-    - status : Working on it 🟨
+    - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
-    - observations : I will see for link/file integration
-- **📃 Command e_end [event_id]**
-    - status : Working on it 🟨
+    - observations : Give event points for a specific user
+- **📃 Command e_end [event_id] [alert]**
+    - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Mods
-    - observations : /
+    - observations : Allow you to end an event
 - **📃 Command e_give [user] [amount]**
-    - status : Working on it 🟨
+    - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Mods
-    - observations :
+    - observations : Allow you to give points to someone
 - **📃 Command e_remove [user] [amount]**
-    - status : Working on it 🟨
+    - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Mods
-    - observations : /
+    - observations : Allow you to remove points to someone
+
+## Perms
+
+Mod perms will be given to users with their user ID, only bot administrator (atm Proxyfil) will be able to add peoples to that list. I will try to do it a better way later for sure ❤️
+
+## Devlogs
+
+- V1.0b | 16/04/2022
+
+Bot is now ready for beta-test. Obviously we can upgrade design and mecanics for some features but bot is usable. Expect 1 week of tests with fixes and changes before achieving a V1.0 definitive.
+Cesium will likely be hosted on my servers, I will do my best to allow 24/24h - 7/7 service but can't garantee that for the moment :/

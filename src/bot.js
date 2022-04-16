@@ -12,6 +12,7 @@ const { write_user, write_invite } = require('./utils/db.js');
 
 //Global Vars
 let logs_channel_id = "924675846843793409"
+let mods = []
 
 //Utils functions
 const reply = async function (interaction, response) { //Reply to defered interaction
@@ -42,7 +43,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
             reply(interaction,embed)
         }
 
-        else if(interaction.commandName == "update_leaderboard"){
+        else if(interaction.commandName == "update_leaderboard" && mods.includes(interaction.user.id)){
             let users = db.get_users_db()
             db.update_leaderboard(users)
 
@@ -105,11 +106,13 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
         }
 
         else if(interaction.commandName == "e_info"){
-            let embed = commands.e_info()
+            let output = db.get_events(20)
+
+            let embed = commands.e_info(output["data"])
             reply(interaction,embed)
         }
 
-        else if(interaction.commandName == "new_event"){
+        else if(interaction.commandName == "new_event" && mods.includes(interaction.user.id)){
             args = interaction.options.data; //Get options as {args}  
 
             let output = db.create_event(args)
@@ -171,7 +174,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
             }
         }
 
-        else if(interaction.commandName == "e_submissions"){
+        else if(interaction.commandName == "e_submissions" && mods.includes(interaction.user.id)){
             let args = interaction.options.data; //Get options as {args}
             let output = db.get_event(args[0].value.toString())
             let event = output["data"]
@@ -202,29 +205,75 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
             }
         }
 
-        else if(interaction.commandName == "e_give"){
+        else if(interaction.commandName == "e_give" && mods.includes(interaction.user.id)){
             args = interaction.options.data; //Get options as {args}
             let amount = db.give(args)
             let username = await (await bot.users.fetch(args[0].value)).username
 
-            let embed = commands.e_give(amount,username)
+            let embed = commands.e_give(amount["data"],username)
             reply(interaction,embed)
         }
 
-        else if(interaction.commandName == "e_remove"){
+        else if(interaction.commandName == "e_remove" && mods.includes(interaction.user.id)){
             args = interaction.options.data; //Get options as {args}
             let amount = db.remove(args)
             let username = await (await bot.users.fetch(args[0].value)).username
 
-            let embed = commands.e_remove(amount,username)
+            let embed = commands.e_remove(amount["data"],username)
             reply(interaction,embed)
         }
 
-        else if(interaction.commandName == "e_end"){
+        else if(interaction.commandName == "e_end" && mods.includes(interaction.user.id)){
             args = interaction.options.data; //Get options as {args}
-            let event = db.end(args)
+            let output = db.end(args)
 
-            let embed = commands.e_end(event)
+            if(output["error"] == 1){
+                let embed = await logs.failed(interaction,"Event ID couldn't be resolve")
+                reply(interaction,embed)
+            }
+            else{
+                let embed = commands.e_end(output["data"])
+                reply(interaction,embed)
+
+                if(args[1].value == true){
+                    output["data"]["joined"].forEach(user_id => {
+                        let embed = new MessageEmbed()
+                        .setTitle(`The event "*${output["data"]["title"]}*" has been ended !`)
+                        .setDescription(`You have won ${output["data"]["points"]} points :thumbsup:`)
+                        .setColor('1cbe7d')
+
+                        bot.users.send(user_id,{"embeds":[embed]})
+                    });
+                }
+            }
+        }
+
+        else if(interaction.commandName == "e_status"){
+            args = interaction.options.data; //Get options as {args}
+            let output = db.e_status(args[0].value)
+            let username = await (await bot.users.fetch(args[0].value)).username
+
+            let embed = commands.e_status(output["data"],username)
+            reply(interaction,embed)
+        }
+
+        else if(interaction.commandName == "e_leaderboard"){
+            let top = db.get_leaderboard_e(20)
+
+            let embed = commands.e_leaderboard(interaction)
+
+            await top.forEach(async element => {
+                let username = await (await bot.users.fetch(element[0])).username
+                embed.addFields({"name": `${username.toString() } :arrow_right: **Event points** : ${element[1]}`,"value": `-------`})
+                
+                if(element[0] == top[top.length-1][0]){
+                    reply(interaction,embed)
+                }
+            });
+        }
+
+        else{
+            let embed = await logs.failed(interaction, "You probably don't have perms to do this command !")
             reply(interaction,embed)
         }
     }
