@@ -108,3 +108,7 @@ Mod perms will be given to users with their user ID, only bot administrator (atm
 
 Bot is now ready for beta-test. Obviously we can upgrade design and mecanics for some features but bot is usable. Expect 1 week of tests with fixes and changes before achieving a V1.0 definitive.
 Cesium will likely be hosted on my servers, I will do my best to allow 24/24h - 7/7 service but can't garantee that for the moment :/
+
+- V1.2b | 19/04/2022
+
+Some optimisation, aesthetical modifications, Deployement on stable hardware.

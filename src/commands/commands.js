@@ -4,7 +4,7 @@ module.exports = {
         let latency = (Date.now() - interaction.createdTimestamp)
 
         const embed = new MessageEmbed()
-            .setTitle('Pong')
+            .setTitle('📡 Pong 📡')
             .setDescription(latency.toString() + ' ms latency')
             .setColor('1cbe7d')
 
@@ -12,7 +12,7 @@ module.exports = {
     },
     r_info: function () { //Get info for the bot
         const embed = new MessageEmbed()
-            .setTitle('Referral Programm Info :')
+            .setTitle('📝 Referral Programm Info :')
             .setDescription('The referral program keeps track of primary referrals, secondary referrals, as well as tertiary referrals to gauge your network\'s reach. The number of referrals is a factor that the PYX_LABS team will use when considering potential Whitelist users')
             .addFields(
                 {"name":":arrow_right: Join the programm :","value":"Use /join command followed by your ETH address to get an invite link to start playing!"},
@@ -35,7 +35,7 @@ module.exports = {
     },
     r_leaderboard: function(interaction) { //Message on joined programm
         const embed = new MessageEmbed()
-            .setTitle(`Leaderboard of ${interaction.guild.name}`)
+            .setTitle(`🏆 Leaderboard of ${interaction.guild.name}`)
             .setDescription('')
             .setColor('1cbe7d')
 
@@ -43,16 +43,16 @@ module.exports = {
     },
     r_status: function(interaction,leaderboard,username) {
         const embed = new MessageEmbed()
-            .setTitle(`Here is the profile of ${username}`)
+            .setTitle(`🖼️ Here is the profile of ${username}`)
             .setDescription('')
-            .addFields({"name": `**Tier 0** : ${leaderboard["tier0"].toString()} | **Tier 1** : ${leaderboard["tier1"].toString()} | **Tier 2** : ${leaderboard["tier2"].toString()} | **Overall** : ${leaderboard["overall"].toString()}`,"value": `-------`})
+            .addFields({"name": `**🥇 Tier 0** : ${leaderboard["tier0"].toString()} | **🥈 Tier 1** : ${leaderboard["tier1"].toString()} | **🥉 Tier 2** : ${leaderboard["tier2"].toString()} | **🏅 Overall** : ${leaderboard["overall"].toString()}`,"value": `-------`})
             .setColor('1cbe7d')
 
         return embed;
     },
     e_info: function(events) {
         const embed = new MessageEmbed()
-            .setTitle(`Events Programm Info :`)
+            .setTitle(`📝 Events Programm Info :`)
             .setDescription('Throughout our marketing campaign, PYX_LABS will host a variety of events and competitions to allow for a select number of members to win a Whitelist spot. Even if you do not win however, participating in an event will allow users to gain event points, a factor that the PYX_LABS team will use when considering potential Whitelist candidates')
             .setColor('1cbe7d')
 
@@ -81,16 +81,16 @@ module.exports = {
     },
     e_join: function(event) {
         const embed = new MessageEmbed()
-            .setTitle(`You have joined the event "*${event["title"]}*"`)
-            .setDescription(`End date of this event : ${new Date(event["timestamp"]).toString()}`)
+            .setTitle(`➡️ You have joined the event "*${event["title"]}*"`)
+            .setDescription(`📅 End date of this event : ${new Date(event["timestamp"]).toString()}`)
             .setColor('1cbe7d')
 
         return embed;
     },
     e_submit: function(event) {
         const embed = new MessageEmbed()
-            .setTitle(`You have submitted a file for the event "*${event["title"]}*"`)
-            .setDescription(`End date of this event : ${new Date(event["timestamp"]).toString()}`)
+            .setTitle(`🔗 You have submitted a link for the event "*${event["title"]}*"`)
+            .setDescription(`📅 End date of this event : ${new Date(event["timestamp"]).toString()}`)
             .setColor('1cbe7d')
 
         return embed;
@@ -98,8 +98,8 @@ module.exports = {
     e_submissions: function(event) {
         let embeds = []
         const embed_guild = new MessageEmbed()
-            .setTitle(`The submissions will be send in your DMs to avoid some spamming here`)
-            .setDescription(`This operation could take a bit of time`)
+            .setTitle(`:information_source: The submissions will be send in your DMs to avoid some spamming here`)
+            .setDescription(`⌛ This operation could take a bit of time`)
             .setColor('1cbe7d')
 
         embeds.push(embed_guild)
@@ -108,40 +108,40 @@ module.exports = {
     },
     e_give: function(amount,username) {
         const embed = new MessageEmbed()
-            .setTitle(`${username} has receive points !`)
-            .setDescription(`New amount : ${amount}`)
+            .setTitle(`🪙 ${username} has receive points !`)
+            .setDescription(`🏦 New amount : ${amount}`)
             .setColor('1cbe7d')
 
         return embed;
     },
     e_remove: function(amount,username) {
         const embed = new MessageEmbed()
-            .setTitle(`${username} has lose points !`)
-            .setDescription(`New amount : ${amount}`)
+            .setTitle(`🪙 ${username} has lose points !`)
+            .setDescription(`🏦 New amount : ${amount}`)
             .setColor('1cbe7d')
 
         return embed;
     },
     e_end: function(event) {
         const embed = new MessageEmbed()
-            .setTitle(`${event["title"]} has been ended`)
-            .setDescription(`Participants : ${event["joined"].length}`)
+            .setTitle(`🎬 ${event["title"]} has been ended`)
+            .setDescription(`🧑‍🤝‍🧑 Participants : ${event["joined"].length}`)
             .setColor('1cbe7d')
 
         return embed;
     },
     e_status: function(amount,username) {
         const embed = new MessageEmbed()
-            .setTitle(`Here is the profile of ${username}`)
+            .setTitle(`🖼️ Here is the profile of ${username}`)
             .setDescription('')
-            .addFields({"name": `Event points : ${amount}`,"value": `-------`})
+            .addFields({"name": `🪙 Event points : ${amount}`,"value": `-------`})
             .setColor('1cbe7d')
 
         return embed;
     },
     e_leaderboard: function(interaction) { //Message on joined programm
         const embed = new MessageEmbed()
-            .setTitle(`Leaderboard of ${interaction.guild.name}`)
+            .setTitle(`🏆 Leaderboard of ${interaction.guild.name}`)
             .setDescription('')
             .setColor('1cbe7d')
 

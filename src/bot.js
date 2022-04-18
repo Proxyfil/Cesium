@@ -186,8 +186,8 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
 
                 for (let e = 0; e < Math.floor(Object.keys(event["submissions"]).length/20)+1; e++) {
                     let embed = new MessageEmbed()
-                        .setTitle(`Submission list for "*${event["title"]}*"`)
-                        .setDescription(`Page ${e+1}/${Math.floor(Object.keys(event["submissions"]).length/20)+1}`)
+                        .setTitle(`📜 Submission list for "*${event["title"]}*"`)
+                        .setDescription(`#️⃣ Page ${e+1}/${Math.floor(Object.keys(event["submissions"]).length/20)+1}`)
                         .setColor('1cbe7d')
         
                     Object.keys(event["submissions"]).splice(e*20,(e+1)*20).forEach(async sub_key => {
@@ -239,8 +239,8 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
                 if(args[1].value == true){
                     output["data"]["joined"].forEach(user_id => {
                         let embed = new MessageEmbed()
-                        .setTitle(`The event "*${output["data"]["title"]}*" has been ended !`)
-                        .setDescription(`You have won ${output["data"]["points"]} points :thumbsup:`)
+                        .setTitle(`🎬 The event "*${output["data"]["title"]}*" has been ended !`)
+                        .setDescription(`🪙 You have won ${output["data"]["points"]} points :thumbsup:`)
                         .setColor('1cbe7d')
 
                         bot.users.send(user_id,{"embeds":[embed]})
@@ -265,7 +265,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
 
             await top.forEach(async element => {
                 let username = await (await bot.users.fetch(element[0])).username
-                embed.addFields({"name": `${username.toString() } :arrow_right: **Event points** : ${element[1]}`,"value": `-------`})
+                embed.addFields({"name": `${username.toString() } :arrow_right: **🪙 Event points** : ${element[1]}`,"value": `-------`})
                 
                 if(element[0] == top[top.length-1][0]){
                     reply(interaction,embed)
