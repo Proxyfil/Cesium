@@ -269,8 +269,11 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
                 
                 if(element[0] == top[top.length-1][0]){
                     reply(interaction,embed)
+                    return
                 }
             });
+
+            reply(interaction,embed)
         }
 
         else{
