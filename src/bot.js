@@ -25,7 +25,7 @@ cmdinit(bot); //Rewrite every commands
 
 bot.on('ready', () => { //Bot init
     console.log("[" + new Date().toLocaleString() + "] [BOOT] Is this... life ?");
-    bot.user.setActivity("/r_info")
+    bot.user.setActivity("/referral_info | /event_info")
 })
 
 bot.on('interactionCreate', async interaction =>{ //On interaction
@@ -39,7 +39,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
             reply(interaction,embed) //Send Ping
         }
 
-        else if(interaction.commandName == "r_info"){
+        else if(interaction.commandName == "referral_info"){
             let embed = commands.r_info()
             reply(interaction,embed)
         }
@@ -52,7 +52,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
             reply(interaction,embed)
         }
 
-        else if(interaction.commandName == "r_leaderboard"){
+        else if(interaction.commandName == "referral_leaderboard"){
             let top = db.get_leaderboard(20)
 
             let embed = commands.r_leaderboard(interaction)
@@ -67,7 +67,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
             });
         }
 
-        else if(interaction.commandName == "r_join"){
+        else if(interaction.commandName == "referral_join"){
             args = interaction.options.data; //Get options as {args}
 
             if(args[0].value.length != 42 || !args[0].value.startsWith('0x')){ //Verify ETH Address style
@@ -97,7 +97,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
 
         }
 
-        else if(interaction.commandName == "r_status"){
+        else if(interaction.commandName == "referral_status"){
             args = interaction.options.data; //Get options as {args}
             let user = db.get_rank(args[0].value)
             let username = await (await bot.users.fetch(args[0].value)).username
@@ -106,7 +106,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
             reply(interaction,embed)
         }
 
-        else if(interaction.commandName == "e_info"){
+        else if(interaction.commandName == "event_info"){
             let output = db.get_events(20)
 
             let embed = commands.e_info(output["data"])
@@ -127,7 +127,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
             }
         }
 
-        else if(interaction.commandName == "e_join"){
+        else if(interaction.commandName == "event_join"){
             args = interaction.options.data; //Get options as {args}  
 
             let output = db.join_event(interaction.user.id,args[0].value.toString())
@@ -145,7 +145,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
             }
         }
 
-        else if(interaction.commandName == "e_submit"){
+        else if(interaction.commandName == "event_submit"){
             args = interaction.options.data; //Get options as {args}
 
             let output = db.submit(interaction.user.id,args)
@@ -175,7 +175,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
             }
         }
 
-        else if(interaction.commandName == "e_submissions" && mods.includes(interaction.user.id)){
+        else if(interaction.commandName == "event_submissions" && mods.includes(interaction.user.id)){
             let args = interaction.options.data; //Get options as {args}
             let output = db.get_event(args[0].value.toString())
             let event = output["data"]
@@ -206,7 +206,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
             }
         }
 
-        else if(interaction.commandName == "e_give" && mods.includes(interaction.user.id)){
+        else if(interaction.commandName == "event_give" && mods.includes(interaction.user.id)){
             args = interaction.options.data; //Get options as {args}
             let amount = db.give(args)
             let username = await (await bot.users.fetch(args[0].value)).username
@@ -215,7 +215,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
             reply(interaction,embed)
         }
 
-        else if(interaction.commandName == "e_remove" && mods.includes(interaction.user.id)){
+        else if(interaction.commandName == "event_remove" && mods.includes(interaction.user.id)){
             args = interaction.options.data; //Get options as {args}
             let amount = db.remove(args)
             let username = await (await bot.users.fetch(args[0].value)).username
@@ -224,7 +224,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
             reply(interaction,embed)
         }
 
-        else if(interaction.commandName == "e_end" && mods.includes(interaction.user.id)){
+        else if(interaction.commandName == "event_end" && mods.includes(interaction.user.id)){
             args = interaction.options.data; //Get options as {args}
             let output = db.end(args)
 
@@ -249,7 +249,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
             }
         }
 
-        else if(interaction.commandName == "e_status"){
+        else if(interaction.commandName == "event_status"){
             args = interaction.options.data; //Get options as {args}
             let output = db.e_status(args[0].value)
             let username = await (await bot.users.fetch(args[0].value)).username
@@ -258,7 +258,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
             reply(interaction,embed)
         }
 
-        else if(interaction.commandName == "e_leaderboard"){
+        else if(interaction.commandName == "event_leaderboard"){
             let top = db.get_leaderboard_e(20)
 
             let embed = commands.e_leaderboard(interaction)

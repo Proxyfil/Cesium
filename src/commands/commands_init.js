@@ -6,17 +6,17 @@ module.exports = function (bot) {
         "options": ""
     },
     {
-        "name": "r_info",
+        "name": "referral_info",
         "description": "Give you info about referral programm",
         "options": ""
     },
     {
-        "name": "r_leaderboard",
+        "name": "referral_leaderboard",
         "description": "Give you top users in the referral programm",
         "options": ""
     },
     {
-        "name": "r_status",
+        "name": "referral_status",
         "description": "Give you someone's referrals",
         "options": [{
             "name": "user",
@@ -31,7 +31,7 @@ module.exports = function (bot) {
         "options": ""
     },
     {
-        "name": "r_join",
+        "name": "referral_join",
         "description": "Allow you to join the referral programm",
         "options": [{
             "name": "eth_address",
@@ -41,7 +41,7 @@ module.exports = function (bot) {
         }]
     },
     {
-        "name": "e_info",
+        "name": "event_info",
         "description": "Give you info about referral programm",
         "options": ""
     },
@@ -86,7 +86,7 @@ module.exports = function (bot) {
         }]
     },
     {
-        "name": "e_join",
+        "name": "event_join",
         "description": "Allow you to join an event",
         "options": [{
             "name": "event_id",
@@ -96,7 +96,7 @@ module.exports = function (bot) {
         }]
     },
     {
-        "name": "e_submit",
+        "name": "event_submit",
         "description": "Allow you to submit a link",
         "options": [{
             "name": "event_id",
@@ -111,7 +111,7 @@ module.exports = function (bot) {
         }]
     },
     {
-        "name": "e_submissions",
+        "name": "event_submissions",
         "description": "Allow you to see submissions for an event [MODS ONLY]",
         "options": [{
             "name": "event_id",
@@ -121,7 +121,7 @@ module.exports = function (bot) {
         }]
     },
     {
-        "name": "e_end",
+        "name": "event_end",
         "description": "Allow you to end an event [MODS ONLY]",
         "options": [{
             "name": "event_id",
@@ -137,7 +137,7 @@ module.exports = function (bot) {
         }]
     },
     {
-        "name": "e_give",
+        "name": "event_give",
         "description": "Allow you to give points to someone [MODS ONLY]",
         "options": [{
             "name": "user",
@@ -153,7 +153,7 @@ module.exports = function (bot) {
         }]
     },
     {
-        "name": "e_remove",
+        "name": "event_remove",
         "description": "Allow you to remove points to someone [MODS ONLY]",
         "options": [{
             "name": "user",
@@ -169,7 +169,7 @@ module.exports = function (bot) {
         }]
     },
     {
-        "name": "e_status",
+        "name": "event_status",
         "description": "Give you someone's event points",
         "options": [{
             "name": "user",
@@ -179,7 +179,7 @@ module.exports = function (bot) {
         }]
     },
     {
-        "name": "e_leaderboard",
+        "name": "event_leaderboard",
         "description": "Give you top users in the event programm",
         "options": ""
     }]

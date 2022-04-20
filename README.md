@@ -22,22 +22,22 @@
     - Authorisations needed : slash command creation
     - Access : Everyone
     - observations : Need tests to be sure but should work
-- **📰 Command /r_info**
+- **📰 Command /referral_info**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
     - observations : Give informations about referrals programm
-- **🥇 Command /r_leaderboard**
+- **🥇 Command /referral_leaderboard**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
     - observations : Give top 20 of users in the referrals programm
-- **➡️ Command r_join [eth_address]**
+- **➡️ Command referral_join [eth_address]**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
     - observations : Allow users to join the referral programm
-- **📃 Command r_status [user]**
+- **📃 Command referral_status [user]**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
@@ -52,47 +52,47 @@
     - Authorisations needed : slash command creation
     - Access : mods
     - observations : Create a new event
-- **📋 Command e_submission [event_id]**
+- **📋 Command event_submission [event_id]**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : mods
     - observations : Send submissions for an event
-- **📰 Command e_info**
+- **📰 Command event_info**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
     - observations : Give you informations about events and give you the 20 newest events
-- **➡️ Command e_join [event_id]**
+- **➡️ Command event_join [event_id]**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
     - observations : Allow users to join an event
-- **📮 Command e_submit [event_id] [link]**
+- **📮 Command event_submit [event_id] [link]**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
     - observations : Allow users to send link for events
-- **🥇 Command e_leaderboard**
+- **🥇 Command event_leaderboard**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
     - observations : Give you the top 20 of users with points for events
-- **📃 Command e_status [user]**
+- **📃 Command event_status [user]**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
     - observations : Give event points for a specific user
-- **📃 Command e_end [event_id] [alert]**
+- **📃 Command event_end [event_id] [alert]**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Mods
     - observations : Allow you to end an event
-- **📃 Command e_give [user] [amount]**
+- **📃 Command event_give [user] [amount]**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Mods
     - observations : Allow you to give points to someone
-- **📃 Command e_remove [user] [amount]**
+- **📃 Command event_remove [user] [amount]**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Mods
