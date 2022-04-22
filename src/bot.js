@@ -12,7 +12,7 @@ const { write_user, write_invite } = require('./utils/db.js');
 
 //Global Vars
 let logs_channel_id = "924675846843793409"
-let bot_channel = "874044700309454858"
+let bot_channel = "966354052449443853"
 let mods = []
 
 //Utils functions
@@ -118,11 +118,18 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
 
             let output = db.create_event(args)
             if(output["error"] == 0){
+                if(output["data"]["nbr_winners"] < 1){
+                    output["data"]["nbr_winners"] = output["data"]["nbr_winners"]+" (somehow you asked for this)" 
+                }
                 let embed = commands.new_event(output["data"])
                 reply(interaction,embed)
             }
-            else{
+            else if(output["error"] == 1){
                 let embed = await logs.failed(interaction,"Date couldn't be resolve")
+                reply(interaction,embed)
+            }
+            else if(output["error"] == 2){
+                let embed = await logs.failed(interaction,"Endtime is in the past")
                 reply(interaction,embed)
             }
         }

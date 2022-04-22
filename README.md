@@ -112,3 +112,8 @@ Cesium will likely be hosted on my servers, I will do my best to allow 24/24h - 
 - V1.2b | 19/04/2022
 
 Some optimisation, aesthetical modifications, Deployement on stable hardware.
+
+- V1.4b | 22/04/2022
+
+Minor fixes, anti-cheat protocols.
+Looking for data encryption and other security protocols to ensure bot safety, we talk about this later.

@@ -42,7 +42,7 @@ module.exports = function (bot) {
     },
     {
         "name": "event_info",
-        "description": "Give you info about referral programm",
+        "description": "Give you info about events",
         "options": ""
     },
     {
@@ -83,6 +83,12 @@ module.exports = function (bot) {
             "description": "Do you allow submissions ?",
             "type": 5,
             "required": true
+        },
+        {
+            "name": "answer",
+            "description": "Answer that need to be find",
+            "type": 3,
+            "required": true
         }]
     },
     {
@@ -97,15 +103,15 @@ module.exports = function (bot) {
     },
     {
         "name": "event_submit",
-        "description": "Allow you to submit a link",
+        "description": "Allow you to submit an answer",
         "options": [{
             "name": "event_id",
             "description": "Give a valid event id",
             "type": 10,
             "required": true
         },{
-            "name": "link",
-            "description": "Link of your submit",
+            "name": "answer",
+            "description": "Answer of your submit",
             "type": 3,
             "required": true
         }]

@@ -55,15 +55,23 @@ module.exports = {
         fs.writeFileSync('./src/ressources/db/referrals/invites.json', data);
     },
     add_use: function(code,amount,member){ //Add one use to invite link
-        let rawdata = fs.readFileSync('./src/ressources/db/referrals/users.json');
+        let rawdata = fs.readFileSync('./src/ressources/db/referrals/users.json'); // Store users in referral programm
         let new_user = JSON.parse(rawdata);
+
+        rawdata = fs.readFileSync('./src/ressources/db/referrals/registered.json'); // Store every users that have already join with a link
+        let registered = JSON.parse(rawdata);
+
         rawdata = fs.readFileSync('./src/ressources/db/referrals/invites.json');
         let new_invite = JSON.parse(rawdata);
-        if(!new_user[new_invite[code]["eth_address"]]["referrals"].includes(member)){
+        if(!new_user[new_invite[code]["eth_address"]]["referrals"].includes(member) && !registered.includes(member)){
             new_user[new_invite[code]["eth_address"]]["referrals"].push(member)
+            registered.push(member)
 
             let data = JSON.stringify(new_user, null, 4);
             fs.writeFileSync('./src/ressources/db/referrals/users.json', data);
+
+            data = JSON.stringify(registered, null, 4);
+            fs.writeFileSync('./src/ressources/db/referrals/registered.json', data);
 
             new_invite[code]["uses"] += amount
 
@@ -142,6 +150,9 @@ module.exports = {
 
         if(!Date.parse(args[4].value)){
             return {"error":1}
+        }
+        else if(Date.parse(args[4].value) < Date.now()){
+            return {"error":2}
         }
         events[id] = {"title":args[0].value,"description":args[1].value,"nbr_winners":args[2].value,"points":args[3].value,"timestamp":Date.parse(args[4].value),"submission":args[5].value,"joined":[],"submissions":{},"id":id}
 
