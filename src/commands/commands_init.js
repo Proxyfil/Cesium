@@ -7,12 +7,12 @@ module.exports = function (bot) {
     },
     {
         "name": "referral_info",
-        "description": "Give you info about referral programm",
+        "description": "Give you info about referral program",
         "options": ""
     },
     {
         "name": "referral_leaderboard",
-        "description": "Give you top users in the referral programm",
+        "description": "Give you top users in the referral program",
         "options": ""
     },
     {
@@ -32,7 +32,7 @@ module.exports = function (bot) {
     },
     {
         "name": "referral_join",
-        "description": "Allow you to join the referral programm",
+        "description": "Allow you to join the referral program",
         "options": [{
             "name": "eth_address",
             "description": "Give a valid ETH address (with 0x)",
@@ -68,7 +68,13 @@ module.exports = function (bot) {
         },
         {
             "name": "points",
-            "description": "Points to participants",
+            "description": "Points for each participants",
+            "type": 10,
+            "required": true
+        },
+        {
+            "name": "winner_points",
+            "description": "Points for each winners",
             "type": 10,
             "required": true
         },
@@ -186,7 +192,7 @@ module.exports = function (bot) {
     },
     {
         "name": "event_leaderboard",
-        "description": "Give you top users in the event programm",
+        "description": "Give you top users in the event program",
         "options": ""
     }]
 

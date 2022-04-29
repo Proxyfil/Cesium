@@ -55,7 +55,7 @@ module.exports = {
         fs.writeFileSync('./src/ressources/db/referrals/invites.json', data);
     },
     add_use: function(code,amount,member){ //Add one use to invite link
-        let rawdata = fs.readFileSync('./src/ressources/db/referrals/users.json'); // Store users in referral programm
+        let rawdata = fs.readFileSync('./src/ressources/db/referrals/users.json'); // Store users in referral program
         let new_user = JSON.parse(rawdata);
 
         rawdata = fs.readFileSync('./src/ressources/db/referrals/registered.json'); // Store every users that have already join with a link
@@ -90,28 +90,6 @@ module.exports = {
             leaderboard[users[user]["user_id"]] = {"tier0":users[user]["referrals"].length}
         });
 
-        users_key.forEach(user => { //Build tier2
-            leaderboard[users[user]["user_id"]]["tier1"] = 0
-            users[user]["referrals"].forEach(referral => {
-                if(leaderboard[referral]){
-                    leaderboard[users[user]["user_id"]]["tier1"] += leaderboard[referral]["tier0"]
-                }
-            });
-        });
-
-        users_key.forEach(user => { //Build tier3
-            leaderboard[users[user]["user_id"]]["tier2"] = 0
-            users[user]["referrals"].forEach(referral => {
-                if(leaderboard[referral]){
-                    leaderboard[users[user]["user_id"]]["tier2"] += leaderboard[referral]["tier1"]
-                }
-            });
-        });
-
-        users_key.forEach(user => { //Build overall
-            leaderboard[users[user]["user_id"]]["overall"] = leaderboard[users[user]["user_id"]]["tier0"] + leaderboard[users[user]["user_id"]]["tier1"] +leaderboard[users[user]["user_id"]]["tier2"]
-        });
-
         let data = JSON.stringify(leaderboard, null, 4);
         fs.writeFileSync('./src/ressources/db/referrals/leaderboard.json', data);
     },
@@ -123,7 +101,7 @@ module.exports = {
             (key) => { return [key, leaderboard[key]] });
         
         items.sort( // Sort list
-            (first, second) => { return second[1]["overall"] - first[1]["overall"] }
+            (first, second) => { return second[1]["tier0"] - first[1]["tier0"] }
         );
 
         var leaderboard_sorted = items.map( // Build dictionnary sorted
@@ -154,7 +132,7 @@ module.exports = {
         else if(Date.parse(args[4].value) < Date.now()){
             return {"error":2}
         }
-        events[id] = {"title":args[0].value,"description":args[1].value,"nbr_winners":args[2].value,"points":args[3].value,"timestamp":Date.parse(args[4].value),"submission":args[5].value,"joined":[],"submissions":{},"id":id}
+        events[id] = {"title":args[0].value,"description":args[1].value,"nbr_winners":args[2].value,"points":args[3].value,"wnr_points":args[4].value,"timestamp":Date.parse(args[5].value),"submission":args[6].value,"answer":args[7].value,"joined":[],"submissions":{},"id":id,"status":"not given"}
 
         data = JSON.stringify(events, null, 4);
         fs.writeFileSync('./src/ressources/db/events/events.json', data);
@@ -276,13 +254,17 @@ module.exports = {
             }
         });
 
+        Object.keys(events[args[0].value]["submissions"]).forEach(user_id => {
+            if(events[args[0].value]["submissions"][user_id][0].toLowerCase().replace(" ","") == events[args[0].value]["answer"]){
+                users[user_id] += events[args[0].value.toString()]["wnr_points"]
+            }
+        })
+
         deleted_event = events[args[0].value.toString()]
-        delete events[args[0].value.toString()]
+        //delete events[args[0].value.toString()] Stop deleting event just before end
 
         data = JSON.stringify(users, null, 4); // Rewrite file
         fs.writeFileSync('./src/ressources/db/events/users.json', data);
-        data = JSON.stringify(events, null, 4); // Rewrite file
-        fs.writeFileSync('./src/ressources/db/events/events.json', data);
         return {"error":0,"data":deleted_event}
     },
     e_status: function(user_id){
@@ -311,5 +293,16 @@ module.exports = {
             (e) => { return e });
 
         return leaderboard_sorted.slice(0, amount) // Send top {amount} users
+    },
+    e_delete: function(event_id){
+        let rawdata = fs.readFileSync('./src/ressources/db/events/events.json'); // Open events file
+        let events = JSON.parse(rawdata);
+
+        deleted_event = events[event_id]
+        delete events[event_id]
+
+        data = JSON.stringify(events, null, 4); // Rewrite file
+        fs.writeFileSync('./src/ressources/db/events/events.json', data);
+        return {"error":0,"data":deleted_event}
     }
 }

@@ -26,17 +26,17 @@
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
-    - observations : Give informations about referrals programm
+    - observations : Give informations about referrals program
 - **🥇 Command /referral_leaderboard**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
-    - observations : Give top 20 of users in the referrals programm
+    - observations : Give top 20 of users in the referrals program
 - **➡️ Command referral_join [eth_address]**
     - status : Done 🟩
     - Authorisations needed : slash command creation
     - Access : Everyone
-    - observations : Allow users to join the referral programm
+    - observations : Allow users to join the referral program
 - **📃 Command referral_status [user]**
     - status : Done 🟩
     - Authorisations needed : slash command creation
@@ -117,3 +117,8 @@ Some optimisation, aesthetical modifications, Deployement on stable hardware.
 
 Minor fixes, anti-cheat protocols.
 Looking for data encryption and other security protocols to ensure bot safety, we talk about this later.
+
+- V1.5b | 29/04/2022
+
+Minors fixes, deleting tier1 and tier2 referrals, changed "link" to "answer", reward points system changed for events, creating script for automatical event end and event removal.
+This still in beta and should be confirmed by users. Leaderboard scale in now almost infinite (with tests sorted 1.000.000 users in 2 seconds)

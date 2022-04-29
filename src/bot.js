@@ -8,7 +8,6 @@ const cmdinit = require('./commands/commands_init.js');
 const logs = require('./utils/logs.js')
 const commands = require('./commands/commands.js')
 const db = require('./utils/db.js');
-const { write_user, write_invite } = require('./utils/db.js');
 
 //Global Vars
 let logs_channel_id = "924675846843793409"
@@ -59,7 +58,7 @@ bot.on('interactionCreate', async interaction =>{ //On interaction
 
             await top.forEach(async element => {
                 let username = await (await bot.users.fetch(element[0])).username
-                embed.addFields({"name": `${username.toString() } :arrow_right: **Tier 0** : ${element[1]["tier0"].toString()} | **Tier 1** : ${element[1]["tier1"].toString()} | **Tier 2** : ${element[1]["tier2"].toString()} | **Overall** : ${element[1]["overall"].toString()}`,"value": `-------`})
+                embed.addFields({"name": `${username.toString() } :arrow_right: **Tier 0** : ${element[1]["tier0"].toString()}`,"value": `-------`})
                 
                 if(element[0] == top[top.length-1][0]){
                     reply(interaction,embed)

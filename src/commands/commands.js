@@ -12,19 +12,19 @@ module.exports = {
     },
     r_info: function () { //Get info for the bot
         const embed = new MessageEmbed()
-            .setTitle('📝 Referral Programm Info :')
-            .setDescription('The referral program keeps track of primary referrals, secondary referrals, as well as tertiary referrals to gauge your network\'s reach. The number of referrals is a factor that the PYX_LABS team will use when considering potential Whitelist users')
+            .setTitle('📝 Referral program Info :')
+            .setDescription('The referral program keeps track of primary referrals, secondary referrals, as well as tertiary referrals to gauge your network\'s reach. The number of referrals is a factor that the PYX_LABS team will use when considering potential PYX_LIST users')
             .addFields(
-                {"name":":arrow_right: Join the programm :","value":"Use /join command followed by your ETH address to get an invite link to start playing!"},
-                {"name":":medal: Leaderboard of the programm :","value":"Use /leaderboard command to get a list of addresses currently competing & their score"}
+                {"name":":arrow_right: Join the program :","value":"Use /join command followed by your ETH address to get an invite link to start playing!"},
+                {"name":":medal: Leaderboard of the program :","value":"Use /leaderboard command to get a list of addresses currently competing & their score"}
             )
             .setColor('1cbe7d')
 
         return embed;
     },
-    r_join: function(interaction,code) { //Message on joined programm
+    r_join: function(interaction,code) { //Message on joined program
         const embed = new MessageEmbed()
-            .setTitle(':white_check_mark: You\'ve successfully joined the referral programm :white_check_mark:')
+            .setTitle(':white_check_mark: You\'ve successfully joined the referral program :white_check_mark:')
             .setDescription('')
             .addFields(
                 {"name":":link: Your invite link :","value":`https://discord.gg/${code}`}
@@ -33,7 +33,7 @@ module.exports = {
 
         return embed;
     },
-    r_leaderboard: function(interaction) { //Message on joined programm
+    r_leaderboard: function(interaction) { //Message on joined program
         const embed = new MessageEmbed()
             .setTitle(`🏆 Leaderboard of ${interaction.guild.name}`)
             .setDescription('')
@@ -52,11 +52,12 @@ module.exports = {
     },
     e_info: function(events) {
         const embed = new MessageEmbed()
-            .setTitle(`📝 Events Programm Info :`)
-            .setDescription('Throughout our marketing campaign, PYX_LABS will host a variety of events and competitions to allow for a select number of members to win a Whitelist spot. Even if you do not win however, participating in an event will allow users to gain event points, a factor that the PYX_LABS team will use when considering potential Whitelist candidates')
+            .setTitle(`📝 Events program Info :`)
+            .setDescription('Throughout our marketing campaign, PYX_LABS will host a variety of events and competitions to allow for a select number of members to win a PYX_LIST spot. Even if you do not win however, participating in an event will allow users to gain event points, a factor that the PYX_LABS team will use when considering potential PYX_LIST candidates')
             .setColor('1cbe7d')
 
         events.forEach(event => {
+            if(event["timestamp"] > Date.now())
             embed.addFields({"name":`**🏷️ ${event["title"]}** | 📝 *${event["description"]}*`,"value":`👑 Winners : ${event["nbr_winners"]} - 🪙 Points to earn : ${event["points"]}\n😀 Players : ${event["joined"].length} - 📮 Submissions : ${event["submission"]}\n📅 End date : ${new Date(event["timestamp"]).toString()}\n 🆔 ID : ${event["id"].toString()}\n-------`})
         });
 
@@ -139,7 +140,7 @@ module.exports = {
 
         return embed;
     },
-    e_leaderboard: function(interaction) { //Message on joined programm
+    e_leaderboard: function(interaction) { //Message on joined program
         const embed = new MessageEmbed()
             .setTitle(`🏆 Leaderboard of ${interaction.guild.name}`)
             .setDescription('')
